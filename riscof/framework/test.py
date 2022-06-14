@@ -261,7 +261,7 @@ def isa_set(string):
 def canonicalise(isa):
     all_ext = ["M","A","F","D","Q","L","C","B","J","K","T","P","V","N","S","H","U","Zicsr",
             "Zifencei","Zihintpause","Zmmul","Zam","Zba","Zbc","Zbb","Zbs","Zbp","Zbm","Zbe","Zbf","Zkne",
-            "Zknd","Zknh","Zkse","Zksh","Zkg","Zkb","Zkr","Zks","Zkn","Ztso","Zbkb","Zbkc","Zbkx"]
+            "Zknd","Zknh","Zkse","Zksh","Zkg","Zkb","Zkr","Zks","Zkn","Ztso","Zbkb","Zbkc","Zbkx", "Zfinx", "Zfh"]
     canonical_string = ""
     switch = False
     for ext in all_ext:
@@ -370,6 +370,11 @@ def generate_test_pool(ispec, pspec, workdir, dbfile = None):
             macros.append("XLEN=" + xlen)
             if re.match(r"^[^(Z,z)]+D.*$",isa):
                 macros.append("FLEN=64")
+            elif re.match(r"^[^(Z,z)]+Zfh.*$",isa):
+                macros.append("FLEN=16")
+            elif re.match(r"^[^(Z,z)]+Zfinx.*$",isa):
+                macros.append("FLEN=32")
+                macros.append("ZFINX=1")
             elif re.match(r"^[^(Z,z)]+F.*$",isa):
                 macros.append("FLEN=32")
             test_pool.append(
