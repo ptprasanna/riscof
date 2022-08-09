@@ -294,15 +294,15 @@ def prod_isa(dut_isa, test_isa):
         :raises: TestSelectError
 
     '''
-    dut_exts = isa_set(re.sub("RV(64|128|32)(I|E)","",dut_isa))
+    dut_exts = isa_set(re.sub("RV(64|128|32)(I|E|F)","",dut_isa))
     isa = set([])
     last_prefix = ''
     atleast_1 = False
 
     for entry in test_isa:
-        match = re.findall("(?P<prefix>RV(64|128|32)(I|E))",entry)
+        match = re.findall("(?P<prefix>RV(64|128|32)(I|E|F))",entry)
         prefix = match[0][0]
-        exts = isa_set(re.sub("RV(64|128|32)(I|E)","",entry))
+        exts = isa_set(re.sub("RV(64|128|32)(I|E|F)","",entry))
         overlap = dut_exts & exts
         if overlap == exts:
             atleast_1 = True
@@ -452,6 +452,8 @@ def run_tests(dut, base, ispec, pspec, work_dir, cntr_args):
         raise SystemExit(0)
     else:
         logger.info("Running Tests on DUT.")
+        # print("This is the dut_test_list")
+        # print(dut_test_list)
         dut.runTests(dut_test_list)
         logger.info("Running Tests on Reference Model.")
         base.runTests(base_test_list)
