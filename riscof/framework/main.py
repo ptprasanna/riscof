@@ -127,9 +127,9 @@ def run_coverage(base, dut_isa_spec, dut_platform_spec, work_dir, cgf_file=None)
                             'test_groups': str(set(test_list[entry[0]]['coverage_labels']))
                             })
     flen = 0
-    if 'F' in ispec['ISA']:
+    if 'F' or 'Zfinx' in ispec['ISA']:
         flen = 32
-    if 'D' in ispec['ISA']:
+    if 'D' or 'Zdinx' in ispec['ISA']:
         flen = 64
     if 64 in ispec['supported_xlen']:
         results = isac.merge_coverage(cov_files, expand_cgf(cgf_file,64,flen), True)
