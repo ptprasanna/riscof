@@ -346,6 +346,9 @@ def generate_test_pool(ispec, pspec, workdir, dbfile = None):
             elif re.match(r"^[^(Z,z)]+Zhinx.*$",isa):
                 # macros.append("FLEN=16")
                 macros.append("ZHINX=1")
+            elif re.match(r"^[^(Z,z)]+F.*$",isa):
+                if re.match(r"^[^(Z,z)]+_Zicsr_Zfh.*$",isa):
+                    macros.append("FLEN=32")
             test_pool.append(
                 (file, db[file]['commit_id'], macros,isa,cov_labels))
     logger.info("Selecting Tests.")
